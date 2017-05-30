@@ -1,0 +1,3 @@
+rootProject.name = 'TemanBisnis'
+
+include ':app'
