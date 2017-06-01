@@ -15,6 +15,8 @@ import Laporan from './laporan/laporan';
 import Piutang from './piUtang/piutang';
 import Lainnya from './lainnya/lainnya';
 
+import AddNewTrx from '../addTrx/addNewTrx';
+
 export default class Dashboard extends Component{
     render(){
         return (
@@ -25,9 +27,11 @@ export default class Dashboard extends Component{
                         <Scene key="laporan" component={Laporan} title="Laporan"/>
                         <Scene key="piutang" component={Piutang} title="PiUtang"/>
                         <Scene key="lainnya" component={Lainnya} title="Lainnya"/>
+                        {/*Transaksi*/}
+                            <Scene key="addTrx" component={AddNewTrx} hideNavBar={true} />
                     </Router>
                         <ActionButton buttonColor='#00AE9C' position="center" offsetY={50} spacing={10}>
-                            <ActionButton.Item buttonColor='#fff' title="Pemasukan" onPress={() => { Actions.laporan() }}>
+                            <ActionButton.Item buttonColor='#fff' title="Pemasukan" onPress={()=> { Actions.addTrx() }}>
                                 <Icon name="md-create" style={styles.actionButtonIcon} />
                             </ActionButton.Item>
                             <ActionButton.Item buttonColor='#fff' title="Pengeluaran" onPress={() => {}}>

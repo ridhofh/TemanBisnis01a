@@ -6,7 +6,17 @@ import {Content, Container, Button, Item, Label, Form, Input} from 'native-base'
 import RegHeader from './regHeader';
 import {Actions} from 'react-native-router-flux';
 
+// const Item = Picker.Item;
+
 export default class RegB extends Component {
+    // constructor (props) {
+    //     super (props);
+    //     this.state = {
+    //         selectedItem: undefined,
+    //         selected1:
+    //     }
+    // }
+
     render() {
         return (
             <Container>

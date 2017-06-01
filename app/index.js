@@ -28,13 +28,13 @@ const IndexApp =() => {
                 <Scene key="login" component={Login} title="Login Page" hideNavBar={true} />
                 <Scene key="welcome" component={WelcomeScreen} hideNavBar={true}  />
                 {/*Registration Story Board*/}
-                    <Scene key="regA" component={RegA} title="A" hideNavBar={true}  />
+                    <Scene key="regA" component={RegA} title="A" hideNavBar={true}   />
                     <Scene key="regB" component={RegB} title="B" hideNavBar={true} />
                     <Scene key="regC" component={RegC} title="C" hideNavBar={true} />
                     <Scene key="regD" component={RegD} title="D" hideNavBar={true} />
                 {/*For Testing Purpose Only*/}
                 <Scene key="test" component={Transactions} hideNavBar={true} />
-                <Scene key="mFNtest" component={TestmFN} hideNavBar={true} />
+                <Scene key="mFNtest" component={TestmFN} hideNavBar={true}   />
             </Scene>
         </Router>
 

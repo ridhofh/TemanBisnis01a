@@ -9,6 +9,7 @@ import {
   AppRegistry,
 } from 'react-native';
 import IndexApp from './app/index';
+import './ReactotronConfig';
 
 export default class TemanBisnis extends Component {
   render() {

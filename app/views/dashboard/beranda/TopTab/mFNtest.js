@@ -53,27 +53,26 @@ export default class TestmFN extends Component{
                             {transaction}
                         </List>
                     </ScrollView>
-
-                <View style={styles.footer}>
-                    <TouchableOpacity onPress={this.addTrx.bind(this)} style={styles.addButton}>
-                        <Text style={styles.addButtonText}>+</Text>
-                    </TouchableOpacity>
-                    <TextInput style={styles.textInput}
-                               onChangeText={(trxCat) => this.setState({trxCat})}
-                               value={this.state.trxCat}
-                               placeholder='> Input: Kategori Trx' placeholderTextColor='white' underlineColorAndroid='transparent'>
-                    </TextInput>
-                    <TextInput style={styles.textInput}
-                               onChangeText={(trxDesc) => this.setState({trxDesc})}
-                               value={this.state.trxDesc}
-                               placeholder='> Input: Deskripsi Trx' placeholderTextColor='white' underlineColorAndroid='transparent'>
-                    </TextInput>
-                    <TextInput style={styles.textInput}
-                               onChangeText={(trxTotal) => this.setState({trxTotal})}
-                               value={this.state.trxTotal}
-                               placeholder='> Input: Total Trx' placeholderTextColor='white' underlineColorAndroid='transparent'>
-                    </TextInput>
-                </View>
+                    <View style={styles.footer}>
+                        <TouchableOpacity onPress={this.addTrx.bind(this)} style={styles.addButton}>
+                            <Text style={styles.addButtonText}>+</Text>
+                        </TouchableOpacity>
+                        <TextInput style={styles.textInput}
+                                   onChangeText={(trxCat) => this.setState({trxCat})}
+                                   value={this.state.trxCat}
+                                   placeholder='> Input: Kategori Trx' placeholderTextColor='white' underlineColorAndroid='transparent'>
+                        </TextInput>
+                        <TextInput style={styles.textInput}
+                                   onChangeText={(trxDesc) => this.setState({trxDesc})}
+                                   value={this.state.trxDesc}
+                                   placeholder='> Input: Deskripsi Trx' placeholderTextColor='white' underlineColorAndroid='transparent'>
+                        </TextInput>
+                        <TextInput style={styles.textInput}
+                                   onChangeText={(trxTotal) => this.setState({trxTotal})}
+                                   value={this.state.trxTotal}
+                                   placeholder='> Input: Total Trx' placeholderTextColor='white' underlineColorAndroid='transparent'>
+                        </TextInput>
+                    </View>
 
             </Container>
         );
