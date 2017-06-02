@@ -12,7 +12,11 @@
     "react-native": "0.44.0",
     "react-native-action-button": "^2.6.9",
     "react-native-fit-image": "^1.4.8",
-    "react-native-router-flux": "3.38.0"
+    "react-native-image-slider": "^1.1.5",
+    "react-native-router-flux": "3.38.0",
+    "react-native-swiper": "^1.5.4",
+    "react-native-unique-id": "^1.0.4",
+    "react-native-uuid": "^1.4.9"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",

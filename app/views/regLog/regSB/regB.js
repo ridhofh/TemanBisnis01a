@@ -2,20 +2,30 @@ import React, { Component } from 'react';
 import {
     Image, View, Text
 } from 'react-native';
-import {Content, Container, Button, Item, Label, Form, Input} from 'native-base';
+import {Content, Container, Button, Picker, Item, Label, Form, Input} from 'native-base';
 import RegHeader from './regHeader';
 import {Actions} from 'react-native-router-flux';
 
 // const Item = Picker.Item;
 
 export default class RegB extends Component {
-    // constructor (props) {
-    //     super (props);
-    //     this.state = {
-    //         selectedItem: undefined,
-    //         selected1:
-    //     }
-    // }
+    constructor(props) {
+        super (props);
+        this._onValueChange = this._onValueChange.bind(this);
+        this.state = {
+            selectedItem: undefined,
+            CatBizSelected: '0',
+            results: {
+                items:[]
+            }
+        }
+    }
+
+    _onValueChange(value: string) {
+        this.setState({
+            CatBizSelected: value
+        });
+    }
 
     render() {
         return (
@@ -27,11 +37,25 @@ export default class RegB extends Component {
                             <Label>Apa Nama Bisnismu?</Label>
                             <Input/>
                         </Item>
-                        <Item floatingLabel>
-                            <Label>Apa Kategori Bisnismu?</Label>
-                            <Input />
-                        </Item>
-
+                    </Form>
+                    <Form style={{padding: 15}}>
+                        <Label stackedLabel style={{fontSize: 15}}>Apa Kategori Bisnismu?</Label>
+                        <Picker
+                            headerComponent="Apa Kategori Bisnismu"
+                            supportedOrientations={['portrait','landscape']}
+                            mode="dropdown"
+                            selectedValue={this.state.CatBizSelected}
+                            onValueChange={this._onValueChange}>
+                            <Picker.Item label="Retail/Online Shop" value="0" />
+                            <Picker.Item label="Fashion" value="1" />
+                            <Picker.Item label="Kuliner" value="2" />
+                            <Picker.Item label="Jasa" value="3" />
+                            <Picker.Item label="Logistik/Dropshipping" value="4" />
+                            <Picker.Item label="Kreatif/Desain" value="5" />
+                            <Picker.Item label="Manufaktur" value="6" />
+                            <Picker.Item label="Pendidikan" value="7" />
+                            <Picker.Item label="Lainnya" value="8" />
+                        </Picker>
                     </Form>
                     <Content style={{padding:10, marginTop:20}}>
                         <Button block style={{padding:5, paddingTop: 10, backgroundColor:'#00AE9C', paddingBottom: 5}} onPress={()=>Actions.regC()}>

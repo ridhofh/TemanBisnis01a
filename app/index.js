@@ -23,13 +23,13 @@ const IndexApp =() => {
     return (
         <Router>
             <Scene key="root">
-                <Scene key="index" component={Dashboard} hideNavBar={true} title="Dashboard" initial />
+                <Scene key="index" component={Dashboard} hideNavBar={true} title="Dashboard"  />
                     <Scene key="dsw" component={DashboardWalkthrough} hideNavBar={true} />
                 <Scene key="login" component={Login} title="Login Page" hideNavBar={true} />
-                <Scene key="welcome" component={WelcomeScreen} hideNavBar={true}  />
+                <Scene key="welcome" component={WelcomeScreen} hideNavBar={true} initial />
                 {/*Registration Story Board*/}
                     <Scene key="regA" component={RegA} title="A" hideNavBar={true}   />
-                    <Scene key="regB" component={RegB} title="B" hideNavBar={true} />
+                    <Scene key="regB" component={RegB} title="B" hideNavBar={true}  />
                     <Scene key="regC" component={RegC} title="C" hideNavBar={true} />
                     <Scene key="regD" component={RegD} title="D" hideNavBar={true} />
                 {/*For Testing Purpose Only*/}

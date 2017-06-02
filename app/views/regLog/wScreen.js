@@ -1,67 +1,101 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet } from 'react-native';
-import { Container, Button, View, DeckSwiper, Card, CardItem, Content, Text, Left, Body } from 'native-base';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { Container, Button, DeckSwiper, Card, CardItem, Content, Left, Body } from 'native-base';
 import FitImage from 'react-native-fit-image';
 import {Actions} from 'react-native-router-flux';
-//next: import ImageSlider from 'react-native-image-slider';
+import ImageSlider from 'react-native-image-slider';
+import Swiper from 'react-native-swiper';
 
 const cards = [
     {
-        desc: 'Membantumu dalam mencatat keuangan bisnis secara realtime dan mudah',
+        desc: '',
         image: require('../../assets/src/img/regLogin/ws1.jpg'),
     },
     {
-        desc: 'Memberikan gambaran kondisi keuangan bisnis secara komprehensif',
+        desc: '',
         image: require('../../assets/src/img/regLogin/ws2.jpg'),
     },
     {
-        desc: 'Memudahkan pengambilan keputusan untuk pengembangan bisnis',
+        desc: '',
         image: require('../../assets/src/img/regLogin/ws3.jpg'),
     },
 ];
 
 export default class WelcomeScreen extends Component {
+    // constructor(props){
+    //     super(props);
+    //
+    //     this.state = {
+    //         position: 1,
+    //         interval: null
+    //     };
+    //
+    // }
+    //
+    // componentWillMount(){
+    //     this.setState({interval: setInterval(() => {
+    //         this.setState({position: this.state.position === 2 ? 0 : this.state.position + 1});
+    //             }, 2000)});
+    // }
+    //
+    // componentWillUnmount(){
+    //     clearInterval(this.state.interval);
+    // }
+
     render() {
         return (
-            <Container>
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    <View style={{flex: 5, height: 400}}>
-                        <DeckSwiper
-                            dataSource={cards}
-                            renderItem={item =>
-                                <Card style={{ elevation: 3 }}>
+            <View style={{flex: 1, flexDirection:'column'}}>
 
-                                    <CardItem cardBody>
-                                        <Body>
-                                            <FitImage style={{width:330, height:270 }} source={item.image} />
-                                            <Text style={{textAlign: 'center', padding:10, paddingTop: 10, paddingBottom: 40, backgroundColor:'#00AE9C', color:'#fff', fontSize:12}}>{item.desc}</Text>
-                                        </Body>
-                                    </CardItem>
-                                </Card>
-                            }
-                        />
+                <View style={{flex: 5}}>
+                    <Swiper >
+                        <View style={styles.slideText}>
+                            <Image style={styles.imageBg} source={require('../../assets/src/img/regLogin/Opening TB_1.png')} />
+                            <Text style={styles.text}>Membantumu dalam mencatat keuangan bisnis secara realtime dan mudah</Text>
+                        </View>
+                        <View style={styles.slideText}>
+                            <Image style={styles.imageBg} source={require('../../assets/src/img/regLogin/Opening TB_2.png')} />
+                            <Text style={styles.text}>Memberikan gambaran kondisi keuangan bisnis secara komprehensif</Text>
+                        </View>
+                        <View style={styles.slideText}>
+                            <Image style={styles.imageBg} source={require('../../assets/src/img/regLogin/Opening TB_3.png')} />
+                            <Text style={styles.text}>Memudahkan pengambilan keputusan untuk pengembangan bisnis</Text>
+                        </View>
+                    </Swiper>
+                </View>
 
-                    </View>
-                    <View style={{flex: 2}}>
-                        <Content style={{padding:10, marginTop:20}}>
+                    <View style={{flex: 3}}>
+                        <Content style={{padding:10, marginTop:75}}>
                             <Button block style={{padding:5, paddingTop: 10, backgroundColor:'#00AE9C', paddingBottom: 5}} onPress={()=>Actions.regA()}>
                                 <Text>DAFTAR AKUN BARU</Text>
                             </Button>
                             <Text style={{color:'#00AE9C', fontSize:12, textAlign: 'center', paddingTop: 15  }} onPress={()=>Actions.login()}>Sudah Punya Akun ?</Text>
                         </Content>
                     </View>
-                </View>
-            </Container>
+            </View>
+
         );
     }
 }
 
 var styles = StyleSheet.create({
-    fitImage: {
-        borderRadius: 20,
+    wrapper: {
     },
-    fitImageWithSize: {
-        height: 100,
-        width: 30,
+    slideText: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
     },
-});
+    text: {
+        color: '#00AE9C',
+        fontSize: 12,
+        textAlign: 'center',
+        padding: 15,
+        paddingBottom: 150,
+    },
+    imageBg:{
+        flex: 1,
+        resizeMode: 'cover', // or 'stretch'
+    }
+})
+

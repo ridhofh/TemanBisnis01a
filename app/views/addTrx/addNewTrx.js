@@ -3,6 +3,8 @@ import {StyleSheet, View, TextInput, ScrollView, Alert, AsyncStorage, TouchableO
 import { Container, Content, Text, Icon, Card, CardItem, Right, Thumbnail, Body, List, ListItem} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Reactotron from 'reactotron-react-native';
+// import uniqueID from 'react-native-unique-id';
+import uuid from 'react-native-uuid';
 
 import DataTrx from './dataTrx';
 
@@ -68,10 +70,11 @@ export default class AddNewTrx extends Component{
         Alert.alert("Add transaction")
         if(this.state.trxCat){
             var d = new Date();
-            var last_item = this.state.trxArray[this.state.trxArray.length - 1]
-            Reactotron.log('cek isi last item')
-            Reactotron.log(last_item)
-            var last_item_id = last_item.trxId;
+            var id_item = uuid.v1();
+            // var last_item = this.state.trxArray[this.state.trxArray.length - 1]
+            // Reactotron.log('cek isi last item')
+            // Reactotron.log(last_item)
+            // var last_item_id = last_item.trxId;
                 // while (last_item_id == null){
                 //     return last_item_id = 0;
                 // }
@@ -80,7 +83,7 @@ export default class AddNewTrx extends Component{
                 'cat': this.state.trxCat,
                 'desc': this.state.trxDesc,
                 'total': this.state.trxTotal,
-                'id': last_item_id + 1 });
+                'id': id_item });
             this.setState({trxArray: this.state.trxArray});
             this.setState({trxCat: ''});
             this.setState({trxDesc: ''});
