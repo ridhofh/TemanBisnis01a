@@ -10,7 +10,7 @@ export default class BHeader extends Component {
             <Header>
                 <Body style={{flexDirection:'row'}}>
                     <Image source={require('../../../assets/src/img/beranda/Ikon_Dompet.png')} style={{width:36, height:36}} />
-                    <Title>      Rp 340.000,00</Title>
+                    <Title>      Rp {this.props.userBalance}</Title>
                 </Body>
             </Header>
         );

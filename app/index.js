@@ -15,8 +15,9 @@ import RegB from './views/regLog/regSB/regB';
 import RegC from './views/regLog/regSB/regC';
 import RegD from './views/regLog/regSB/regD';
 //forTestingOnlu
-import Transactions from './views/addTrx/addNewTrx';
+import Transactions from './views/addTrx/addNewTrx-backup';
 import TestmFN from './views/dashboard/beranda/TopTab/mFNtest';
+import AddNewTrx from './views/addTrx/addNewTrx';
 
 
 const IndexApp =() => {
@@ -26,15 +27,16 @@ const IndexApp =() => {
                 <Scene key="index" component={Dashboard} hideNavBar={true} title="Dashboard"  />
                     <Scene key="dsw" component={DashboardWalkthrough} hideNavBar={true} />
                 <Scene key="login" component={Login} title="Login Page" hideNavBar={true} />
-                <Scene key="welcome" component={WelcomeScreen} hideNavBar={true} initial />
+                <Scene key="welcome" component={WelcomeScreen} hideNavBar={true}  />
                 {/*Registration Story Board*/}
-                    <Scene key="regA" component={RegA} title="A" hideNavBar={true}   />
-                    <Scene key="regB" component={RegB} title="B" hideNavBar={true}  />
+                    <Scene key="regA" component={RegA} title="A" hideNavBar={true}  />
+                    <Scene key="regB" component={RegB} title="B" hideNavBar={true} />
                     <Scene key="regC" component={RegC} title="C" hideNavBar={true} />
                     <Scene key="regD" component={RegD} title="D" hideNavBar={true} />
                 {/*For Testing Purpose Only*/}
-                <Scene key="test" component={Transactions} hideNavBar={true} />
+                {/*<Scene key="test" component={Transactions} hideNavBar={true} />*/}
                 <Scene key="mFNtest" component={TestmFN} hideNavBar={true}   />
+                <Scene key="addTrx" component={AddNewTrx} hideNavBar={true} initial />
             </Scene>
         </Router>
 

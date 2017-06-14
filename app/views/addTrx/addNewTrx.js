@@ -1,31 +1,55 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, ScrollView, Alert, AsyncStorage, TouchableOpacity } from 'react-native';
-import { Container, Content, Text, Icon, Card, CardItem, Right, Thumbnail, Body, List, ListItem} from 'native-base';
+import {StyleSheet, View, TextInput, ScrollView, Alert, AsyncStorage, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Container, Form, Item, Label, Input, Picker, Radio, Text, ListItem} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Reactotron from 'reactotron-react-native';
-// import uniqueID from 'react-native-unique-id';
 import uuid from 'react-native-uuid';
+import AddTrxHeader from './addTrxHeader';
+import Hr from 'react-native-hr';
+import DatePicker from 'react-native-datepicker';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
-import DataTrx from './dataTrx';
-
-var StorageKey = 'transaction';
+import AddNewTrxDetail from './addNewTrxDetail';
 
 export default class AddNewTrx extends Component{
 
-
     constructor(props) {
-        super(props)
+        super(props);
+        this._onValueChange = this._onValueChange.bind(this);
         this.state = {
             trxId: "",
+            trxUserId: "",
+            trxType: this.props.trxType,
+            trxQty: 1,
+            trxPrice: "",
+            trxTotalPrice: "",
             trxCat: "",
             trxDesc: "",
-            trxAmount: "",
-            trxTotal: "",
             trxIconImg: "",
+            trxDate: this.cek_date(),
+            trxPaymentType: 0,
             trxArray: [],
+            trxOwner: [],
+
+            expanded: true
+            };
+
+        this.icons = {
+            'up'    : require('../../assets/src/img/icon_trx/arrow-up.png'),
+            'down'  : require('../../assets/src/img/icon_trx/arrow-down.png')
         }
     }
 
+    cek_date(){
+        let d = new Date();
+        return d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+    }
+
+    _onValueChange(value: string) {
+        this.setState({
+            trxCat: value
+        });
+    }
 
     componentWillMount() {
         AsyncStorage.getItem('transaction').then((transaction) => {
@@ -39,29 +63,106 @@ export default class AddNewTrx extends Component{
 
 
     render(){
+        Reactotron.log("CEK DATE");
+        Reactotron.log(this.state.trxDate);
 
+        let icon = this.icons['down'];
+        if(this.state.expanded) {
+            icon = this.icons['up'];
+        }
+
+        var radio_props = [
+            {label: 'Tunai/Transfer     ', value:0},
+            {label: 'Utang', value:1}];
         return(
             <Container style={{flex:1}}>
-                <View style={styles.footer}>
-                    <TouchableOpacity onPress={this.addTrx.bind(this)} style={styles.addButton}>
-                        <Text style={styles.addButtonText}>+</Text>
-                    </TouchableOpacity>
-                    <TextInput style={styles.textInput}
-                               onChangeText={(trxCat) => this.setState({trxCat})}
-                               value={this.state.trxCat}
-                               placeholder='> Input: Kategori Trx' placeholderTextColor='white' underlineColorAndroid='transparent'>
-                    </TextInput>
-                    <TextInput style={styles.textInput}
-                               onChangeText={(trxDesc) => this.setState({trxDesc})}
-                               value={this.state.trxDesc}
-                               placeholder='> Input: Deskripsi Trx' placeholderTextColor='white' underlineColorAndroid='transparent'>
-                    </TextInput>
-                    <TextInput style={styles.textInput}
-                               onChangeText={(trxTotal) => this.setState({trxTotal})}
-                               value={this.state.trxTotal}
-                               placeholder='> Input: Total Trx' placeholderTextColor='white' underlineColorAndroid='transparent'>
-                    </TextInput>
-                </View>
+                <AddTrxHeader headerTitle={this.state.trxType} />
+                <Form style={{paddingRight:15}}>
+                    <Item inlineLabel>
+                        <Label style={{paddingRight: 5}}>Rp.</Label>
+                        <Input onChangeText={(trxTotalPrice) => this.setState({trxTotalPrice})}
+                               placeholder="0 ,-"
+                               value={this.state.trxTotalPrice}/>
+                    </Item>
+                    <Item>
+                        <Label style={{width: 35, paddingRight:0, marginRight:0, fontSize:16 }}>Qty.</Label>
+                        <TextInput onChangeText={(trxQty) => this.setState({trxQty})}
+                               placeholder="1"
+                               style={{width: 25, marginRight:10, fontSize:16, textAlign:'center' }}
+                               value={this.state.trxQty}/>
+
+                        <Label style={{paddingRight: 5}} >@Rp.</Label>
+                        <Input onChangeText={(trxPrice) => this.setState({trxPrice})}
+                               placeholder="0 ,-"
+                               value={this.state.trxPrice}/>
+                    </Item>
+                    {/*next: https://github.com/d-a-n/react-native-modal-picker*/}
+                    <Form style={{paddingLeft: 10, paddingRight: 15}}>
+                        <Picker
+                            supportedOrientations={['portrait','landscape']}
+                            mode="dropdown"
+                            selectedValue={this.state.trxCat}
+                            onValueChange={this._onValueChange}>
+                            <Picker.Item label="Kategori" value="" disabled/>
+                            <Picker.Item label="Penjualan" value="0" />
+                            <Picker.Item label="Pinjaman" value="1" />
+                            <Picker.Item label="Pembelian Persediaan" value="2" />
+                            <Picker.Item label="Ongkos Kirim" value="3" />
+                            <Picker.Item label="Pembayaran Hutang" value="4" />
+                        </Picker>
+                        <Hr lineColor="#d6d1d1" />
+                    </Form>
+                    <Item>
+
+                        <Input style={{paddingLeft:0}}onChangeText={(trxDesc) => this.setState({trxDesc})}
+                               placeholder="Deskripsi"
+                               value={this.state.trxDesc}/>
+                    </Item>
+                    <Item inlineLabel>
+                        <Label >Tanggal</Label>
+                        <DatePicker
+                            style={{width: 200, borderWidth: 0}}
+                            date={this.state.trxDate}
+                            mode="date"
+                            placeholder="select date"
+                            format="DD-MM-YYYY"
+                            minDate="01-05-2010"
+                            maxDate="01-05-2021"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            label="Pilih"
+                            showIcon={false}
+                            customStyles={{
+                                dateInput: {
+                                    marginLeft: 10,
+                                    borderWidth: 0
+                                },
+
+                                // ... You can check the source to find the other keys.
+                            }}
+                            onDateChange={(date) => {this.setState({trxDate: date})}}
+
+                        />
+                    </Item>
+                    <Item>
+                        <Form>
+                        <Label style={{paddingBottom: 5}}>Pembayaran Melalui</Label>
+                        <RadioForm
+                            radio_props={radio_props}
+                            initial={0}
+                            buttonColor={'#00AE9C'}
+                            formHorizontal={true}
+                            buttonSize={14}
+                            labelWrapStyle={{marginLeft: 10}}
+                            onPress={(value) => {this.setState({trxPaymentType:value})}}
+                        />
+                    </Form>
+                    </Item>
+                    <ScrollView style={{padding:15}}>
+                        <AddNewTrxDetail title="Buka data pemasok"/>
+                    </ScrollView>
+                </Form>
+
             </Container>
         );
     }
@@ -69,21 +170,14 @@ export default class AddNewTrx extends Component{
     addTrx(){
         Alert.alert("Add transaction")
         if(this.state.trxCat){
-            var d = new Date();
-            var id_item = uuid.v1();
-            // var last_item = this.state.trxArray[this.state.trxArray.length - 1]
-            // Reactotron.log('cek isi last item')
-            // Reactotron.log(last_item)
-            // var last_item_id = last_item.trxId;
-                // while (last_item_id == null){
-                //     return last_item_id = 0;
-                // }
+
+            let trxId = uuid.v1();
 
             this.state.trxArray.push({'date': d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate(),
                 'cat': this.state.trxCat,
                 'desc': this.state.trxDesc,
                 'total': this.state.trxTotal,
-                'id': id_item });
+                'id': trxId });
             this.setState({trxArray: this.state.trxArray});
             this.setState({trxCat: ''});
             this.setState({trxDesc: ''});
@@ -100,63 +194,7 @@ export default class AddNewTrx extends Component{
 
 }
 
-
-
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-    },
-    header: {
-        backgroundColor: '#E91E63',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderBottomColor: '#ddd',
-        borderBottomWidth: 10,
-    },
 
-    headerText:{
-        color: 'white',
-        fontSize: 18,
-        padding: 26,
-    },
-
-    scrollContainer:{
-        flex: 1,
-        marginBottom:100,
-    },
-
-    footer:{
-        position: 'absolute',
-        alignItems: 'center',
-        bottom: 0,
-        left: 0,
-        right: 0,
-    },
-
-    addButton:{
-        backgroundColor: '#E91E63',
-        width:90,
-        height:90,
-        borderRadius:50,
-        borderColor: '#ccc',
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 8,
-        marginBottom: -45,
-        zIndex: 10,
-    },
-    addButtonText:{
-        color: '#fff',
-        fontSize: 24,
-    },
-    textInput:{
-        alignSelf: 'stretch',
-        color: '#fff',
-        padding: 10,
-        paddingTop: 26,
-        backgroundColor: '#252525',
-        borderTopWidth: 2,
-        borderTopColor: '#ededed',
-    }
 });
 
