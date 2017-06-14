@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, ScrollView, Alert, AsyncStorage, TouchableOpacity, TouchableHighlight } from 'react-native';
-import { Container, Form, Item, Label, Input, Picker, Radio, Text, ListItem} from 'native-base';
+import { Container, Form, Item, Label, Input, Picker, Content, Text, Button} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Reactotron from 'reactotron-react-native';
 import uuid from 'react-native-uuid';
@@ -75,8 +75,10 @@ export default class AddNewTrx extends Component{
             {label: 'Tunai/Transfer     ', value:0},
             {label: 'Utang', value:1}];
         return(
+
             <Container style={{flex:1}}>
                 <AddTrxHeader headerTitle={this.state.trxType} />
+                <ScrollView>
                 <Form style={{paddingRight:15}}>
                     <Item inlineLabel>
                         <Label style={{paddingRight: 5}}>Rp.</Label>
@@ -162,8 +164,14 @@ export default class AddNewTrx extends Component{
                         <AddNewTrxDetail title="Buka data pemasok"/>
                     </ScrollView>
                 </Form>
-
+                </ScrollView>
+                {/*<Content style={{padding:10, margin}}>*/}
+                    <Button block style={{padding:5, margin:10, backgroundColor:'#00AE9C', paddingBottom: 5}} >
+                        <Text style={{color:'#fff'}}>SIMPAN</Text>
+                    </Button>
+                {/*</Content>*/}
             </Container>
+
         );
     }
 
